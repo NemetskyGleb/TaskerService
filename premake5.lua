@@ -3,26 +3,11 @@ include("conanbuildinfo.premake.lua")
 
 -- Main Workspace
 workspace "TaskerService"
-    -- Import conan gennerate config
+    -- Import conan generate config
     conan_basic_setup()
 
-    -- Project
-    project "tasker_service"
-        kind "ConsoleApp"
-        language "C++"
-        targetdir "bin/%{cfg.buildcfg}"
-		objdir "bin/%{cfg.buildcfg}/obj/"
-		location "src"
-        debugdir "result"
+    ClientSideDefaultFolder = "src/ClientSide"
+    ConfigurationParsingDefaultFolder = "src/ConfigurationParsing"
 
-        linkoptions { conan_exelinkflags }
-
-        files { "**.h", "**.cpp" }
-
-        filter "configurations:Debug"
-		defines { "DEBUG" }
-		symbols "On"
-
-		filter "configurations:Release"
-		defines { "NDEBUG" }
-		optimize "On"
+    include "src/ClientSide"
+    include "src/ConfigurationParsing"
